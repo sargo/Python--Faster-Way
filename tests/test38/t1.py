@@ -1,4 +1,4 @@
-class Spam():
+class Spam:
     def __init__(self):
         self.eggs = 'eggs'
 

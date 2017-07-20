@@ -4,3 +4,5 @@ def a():
     for p, v in enumerate(l):
         d.update({p: v})
     return d
+
+number = 100000

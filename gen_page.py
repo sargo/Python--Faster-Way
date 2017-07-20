@@ -1,11 +1,13 @@
 import os
 import platform
+import re
 import subprocess
 import sys
 import timeit
 
 from jinja2 import Template
 from unipath import Path, DIRS, FILES
+
 
 NUMBER = 1000000
 
@@ -14,6 +16,8 @@ dis_template = Path(base_path, 'dis_template.py_tmpl').read_file()
 template = Template(base_path.child('template.html').read_file())
 test_path = Path(base_path, 'tests')
 tmp = Path('/tmp')
+
+code_obj_re = re.compile(r' at 0x.*, file "/tmp/.*"')
 
 
 def main():
@@ -36,6 +40,8 @@ def main():
                     stderr=subprocess.PIPE
                 )
                 out, err = p.communicate()
+                out = out.decode("utf-8")
+                out = code_obj_re.sub('', out)
 
                 dis_test_file.remove()
 
@@ -45,7 +51,7 @@ def main():
                 exec(code, f)
                 number = f['number'] or NUMBER
                 group.append({
-                    'dis': out.decode("utf-8"),
+                    'dis': out,
                     'file_content': file_content,
                     'number': number,
                     'timeit_min': min(timeit.repeat(f['a'], number=number)),

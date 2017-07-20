@@ -5,4 +5,4 @@ def a():
     return s
 
 
-number = 100000
+number = 10000

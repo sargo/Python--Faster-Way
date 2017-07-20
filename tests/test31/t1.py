@@ -3,4 +3,4 @@ def a(int=int, str=str, range=range):
         int(str(i))
 
 
-number = 100000
+number = 10000

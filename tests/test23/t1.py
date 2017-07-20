@@ -1,5 +1,5 @@
 def a():
     r = ''
     for i in range(10):
-        r = '%s%s' % (r, str(i))
+        r = '{}{}'.format(r, str(i))
     return r
