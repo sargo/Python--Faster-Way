@@ -3,10 +3,14 @@ Python--Faster-Way
 
 Python: Faster Way
 
-http://pythonfasterway.cf/
+http://pythonfasterway.org/
 
-http://zokis.github.io/Python--Faster-Way/
-
+Installation:
+-------------
+```bash
+mkvirutalenv --python=/usr/bin/python3 pyfasterway
+pip3 install -r requirements.txt
+```
 
 Creating a new test: 
 --------------------
@@ -18,7 +22,13 @@ Creating a new test:
 
 To generate the Page run:
 -------------------------
-```
+```bash
 python gen_page.py
 ```
 this process can take
+
+Preview:
+--------
+```bash
+python -m http.server 8080
+```
