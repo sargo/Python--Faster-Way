@@ -28,24 +28,30 @@ dis(a)
 
 def gen_cases():
     cases = []
-    for case_id, case_dirpath in enumerate(sorted(glob(os.path.join(cases_path, '*'))), 1):
+    cases_glob = glob(os.path.join(cases_path, '*'))
+    cases_glob.sort()
+    for case_id, case_dirpath in enumerate(cases_glob, 1):
         print("Case #{}".format(case_id))
         tests = []
-        for test_id, test_filepath in enumerate(glob(os.path.join(case_dirpath, '*')), 1):
+        tests_glob = glob(os.path.join(case_dirpath, '*'))
+        for test_id, test_filepath in enumerate(tests_glob, 1):
             print("    Test #{}".format(test_id))
             file_content = open(test_filepath).read()
 
-            dis_test_file = tempfile.TemporaryFile()
-            dis_test_file.write(dis_template.format(file_content).encode('utf-8'))
 
-            p = subprocess.Popen(
-                ['python3', '-B', str(dis_test_file)],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE
-            )
-            out, err = p.communicate()
-            out = out.decode("utf-8")
-            out = code_obj_re.sub('', out)
+            with tempfile.NamedTemporaryFile() as dis_test_file:
+                dis_test_file.write(
+                    dis_template.format(file_content).encode('utf-8'))
+                dis_test_file.flush()
+
+                p = subprocess.Popen(
+                    ['python3', '-B', str(dis_test_file.name)],
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE
+                )
+                out, err = p.communicate()
+                out = out.decode("utf-8")
+                out = code_obj_re.sub('', out)
 
             m = number_re.search(file_content)
             number = int(m.group(1)) if m else NUMBER

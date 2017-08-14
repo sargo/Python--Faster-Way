@@ -7,7 +7,14 @@
             <img class="center-block" src="./assets/logo.png">
           </div>
           <div class="column col-md-6">
-            <pre v-highlightjs><code class="python hljs">
+            <pre v-highlightjs><code class="python hljs">>>> """Learn the performance impact of specific
+... code structures, not to apply micro-optimisations
+... to all your old programs, but to write fast
+... Python code from now on. Sometimes alternatives
+... make a difference, and other times they simply
+... do not. Remeber, choosing the best solution
+... you should also consider Zen of Python!"""
+
 >>> import sys
 >>> import platform
 >>> platform.system()
@@ -18,8 +25,7 @@
 {{ sys_version }}
 >>> import timeit
 >>> from dis import dis
->>> 
-            </code></pre>
+>>> </code></pre>
           </div>  
         </div>
       </div>
