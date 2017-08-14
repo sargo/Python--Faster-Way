@@ -1,6 +1,0 @@
-from dis import dis
-
-
-{}
-
-dis(a)
